@@ -16,6 +16,6 @@ fyf.pdr_override()
 
 #type(BABA)
 #print(BABA_np)
-df = pd.read_excel(".\ipo.xlsx")
+df = pd.read_excel("ipo.xlsx")
 
 print(df.columns)
