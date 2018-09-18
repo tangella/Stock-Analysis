@@ -1,22 +1,16 @@
 import pandas as pd
-pd.core.common.is_list_like = pd.api.types.is_list_like
-import fix_yahoo_finance as fyf
-from pandas_datareader import data as pdr
 import numpy as np
-import datetime
-import xlrd
-fyf.pdr_override()
-# We will look at stock prices over the past year, starting at January 1, 2016
-#startd = datetime.datetime(2016,1,1)
-#endd = datetime.date.today()
- 
-#BABA = pdr.get_data_yahoo("BABA", start=startd, end=endd)
-#BABA = pdr.get_data_yahoo("BABA", start=endd, end=endd)
-#BABA_np = np.array(BABA)
+from iexfinance import get_historical_data
+from datetime import datetime
 
-#type(BABA)
-#print(BABA_np)
-df = pd.read_excel("ipo.xlsx")
-df_np = np.array(df)
-print(df_np.shape)
-print(df_np[1])
+# https://pypi.org/project/iexfinance/
+
+IPOData = pd.read_excel("ipo.xlsx")
+IPOData_np = np.array(IPOData)
+
+def getQuote(index):
+    print(IPOData_np[index,3])
+    df = get_historical_data(IPOData_np[index,3], start=IPOData_np[index,8], end=IPOData_np[index,8] + timedelta(days=4), output_format="pandas")
+    df_np = np.array(df)
+    print(df_np[:,3])
+
