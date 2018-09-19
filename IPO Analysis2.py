@@ -18,23 +18,17 @@ def getQuote(index):
                                  end=IPOData_np[index,1] + timedelta(days=35), 
                                  output_format="pandas")
         print(df.loc[df.index[0], 'close'])
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'One Month'] = IPOData_np[index,1] + timedelta(days=31)
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'Price Date'] = df.index[0]
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'Current Price'] = df.loc[df.index[0], 'close']
+        IPOData.loc[index, 'One Month'] = IPOData_np[index,1] + timedelta(days=31)
+        IPOData.loc[index, 'Price Date'] = df.index[0]
+        IPOData.loc[index, 'Current Price'] = df.loc[df.index[0], 'close']
         
     except:
         # update the original price as target price and also original date as 
         # one Month and Price Date
         print("Symbol Not found and updating the current price to original\n")
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'One Month'] = IPOData_np[index,1]
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'Price Date'] = IPOData_np[index,1]
-        IPOData.loc[IPOData['Symbol'] == IPOData_np[index,3], 
-                    'Current Price'] = IPOData_np[index,2]
+        IPOData.loc[index, 'One Month'] = IPOData_np[index,1]
+        IPOData.loc[index, 'Price Date'] = IPOData_np[index,1]
+        IPOData.loc[index, 'Current Price'] = IPOData_np[index,2]
 
 # complete the processing
 for i in range(0,np.size(IPOData_np,0)):
